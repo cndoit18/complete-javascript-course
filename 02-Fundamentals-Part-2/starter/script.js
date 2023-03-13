@@ -61,9 +61,9 @@ let calcTip = (bill) => (bill > 50 && bill < 300 ? bill * 0.15 : bill * 0.2);
 let bills = [125, 555, 44];
 let tips = [];
 let totals = [];
-for(let i in bills) {
-    tips.push(calcTip(bills[i]));
-    totals.push(tips[i] + bills[i]);
+for (let i in bills) {
+  tips.push(calcTip(bills[i]));
+  totals.push(tips[i] + bills[i]);
 }
 console.log(tips);
 console.log(totals);
@@ -83,31 +83,35 @@ GOOD LUCK 😀
 */
 
 let mark = {
-    fullname: "Mark Miller",
-    mess: 78,
-    height: 1.69,
-    calcBMI: function() {
-        this.bmi = this.mess / this.height ** 2;
-        return this.bmi;
-    }
+  fullname: "Mark Miller",
+  mess: 78,
+  height: 1.69,
+  calcBMI: function () {
+    this.bmi = this.mess / this.height ** 2;
+    return this.bmi;
+  },
 };
 let john = {
-    fullname: "John Smith",
-    mess: 92,
-    height: 1.95,
-    calcBMI: function() {
-        this.bmi = this.mess / this.height ** 2;
-        return this.bmi;
-    }
+  fullname: "John Smith",
+  mess: 92,
+  height: 1.95,
+  calcBMI: function () {
+    this.bmi = this.mess / this.height ** 2;
+    return this.bmi;
+  },
 };
 
 mark.calcBMI();
 john.calcBMI();
 
-if(mark.bmi > john.bmi) {
-    console.log(`${mark.fullname}'s BMI (${mark.bmi}) is higher than ${john.fullname}'s (${john.bmi})!`)
-} else if(john.bmi > mark.bmi) {
-    console.log(`${john.fullname}'s BMI (${john.bmi}) is higher than ${mark.fullname}'s (${mark.bmi})!`)
+if (mark.bmi > john.bmi) {
+  console.log(
+    `${mark.fullname}'s BMI (${mark.bmi}) is higher than ${john.fullname}'s (${john.bmi})!`
+  );
+} else if (john.bmi > mark.bmi) {
+  console.log(
+    `${john.fullname}'s BMI (${john.bmi}) is higher than ${mark.fullname}'s (${mark.bmi})!`
+  );
 }
 
 // Coding Challenge #4
@@ -135,19 +139,19 @@ bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 tips = [];
 totals = [];
 
-for(let i = 0; i < bills.length; i ++) {
-    tips.push(calcTip(bills[i]));
-    totals.push(tips[i]+ bills[i]);
+for (let i = 0; i < bills.length; i++) {
+  tips.push(calcTip(bills[i]));
+  totals.push(tips[i] + bills[i]);
 }
 
 console.log(tips, totals);
 
 calcAverage = function (arr) {
-    let sum = 0;
-    for(let i = 0; i < arr.length; i ++) {
-        sum += arr[i];
-    }
-    return sum / arr.length;
-}
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+};
 
 console.log(calcAverage(totals));

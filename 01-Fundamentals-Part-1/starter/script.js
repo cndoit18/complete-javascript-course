@@ -51,7 +51,7 @@ GOOD LUCK 😀
 let john_ibm = calculate(john_height, john_weight);
 let mark_ibm = calculate(mark_height, mark_weight);
 
-if(mark_ibm > john_ibm) {
+if (mark_ibm > john_ibm) {
   console.log(`Mark's BMI(${mark_ibm}) is higher than John's(${john_ibm})!`);
 } else {
   console.log(`John's BMI(${john_ibm}) is higher than Mark's(${mark_ibm})!`);
@@ -79,13 +79,13 @@ function closure() {
   let sum = 0;
   let n = 0;
   let hasLowest = false;
-  return (num)=>{
-    sum += num; 
-    n += 1; 
+  return (num) => {
+    sum += num;
+    n += 1;
     if (num >= 100) hasLowest = true;
     if (!hasLowest) return NaN;
-    return sum/n;
-  }
+    return sum / n;
+  };
 }
 
 let koalas_average, dolphins_average;
@@ -99,13 +99,13 @@ koalas(88);
 koalas(91);
 koalas_average = koalas(110);
 
-if(!koalas_average && !dolphins_average) {
+if (!koalas_average && !dolphins_average) {
   console.log("The two teams draw, No one won the championship.");
-} else if(dolphins_average && !koalas_average) {
+} else if (dolphins_average && !koalas_average) {
   console.log("dolphins is win");
-} else if(koalas_average && !dolphins_average) {
+} else if (koalas_average && !dolphins_average) {
   console.log("koalas is win");
-} else if(dolphins_average > koalas_average) {
+} else if (dolphins_average > koalas_average) {
   console.log("dolphins is win");
 } else if (dolphins_average === koalas_average) {
   console.log("The two teams draw, No one won the championship.");
@@ -130,5 +130,7 @@ GOOD LUCK 😀
 */
 
 let bill = 40;
-let tip = (bill > 50 && bill < 300)? bill * 0.15 : bill * 0.2;
-console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+let tip = bill > 50 && bill < 300 ? bill * 0.15 : bill * 0.2;
+console.log(
+  `The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`
+);
