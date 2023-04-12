@@ -41,7 +41,9 @@ function whereAmI(lat, lng, callback = insert) {
     })
     .then(data => {
       console.log(`You are in ${data.city}, ${data.country}`);
-      return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
+      return fetch(
+        `https://restcountries.com/v3.1/name/${data.country}?fullText=true`
+      );
     })
     .then(response => {
       if (!response.ok)
@@ -78,9 +80,7 @@ function insert(data) {
       <div class="country__data">
         <h3 class="country__name">${name}</h3>
         <h4 class="country__region">${region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          +population / 1000000
-        ).toFixed(1)} people</p>
+        <p class="country__row"><span>👫</span>${(+population).toLocaleString()} people</p>
         <p class="country__row"><span>🗣️</span>${
           Object.values(languages)[0]
         }</p>
@@ -94,7 +94,74 @@ function insert(data) {
 }
 
 btn.addEventListener('click', function (e) {
-  whereAmI(52.508, 13.381);
-  whereAmI(19.037, 72.873);
-  whereAmI(-33.933, 18.474);
+  const getPosition = new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+  getPosition.then(position => {
+    const {
+      coords: { latitude, longitude },
+    } = position;
+    whereAmI(latitude, longitude);
+  });
 });
+
+// Coding Challenge #2
+
+/* 
+Build the image loading functionality that I just showed you on the screen.
+
+Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. Pretend you're working on your own 😉
+
+PART 1
+1. Create a function 'createImage' which receives imgPath as an input. This function returns a promise which creates a new image (use document.createElement('img')) and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. In case there is an error loading the image ('error' event), reject the promise.
+
+If this part is too tricky for you, just watch the first part of the solution.
+
+PART 2
+2. Comsume the promise using .then and also add an error handler;
+3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;
+4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image (HINT: Use the image element returned by the createImage promise to hide the current image. You will need a global variable for that 😉);
+5. After the second image has loaded, pause execution for 2 seconds again;
+6. After the 2 seconds have passed, hide the current image.
+
+TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
+
+GOOD LUCK 😀
+*/
+
+function createImage(imgPath) {
+  const imgElement = document.createElement('img');
+  imgElement.src = imgPath;
+  const images = document.querySelector('.images');
+  return new Promise((resolve, reject) => {
+    imgElement.addEventListener('load', e => {
+      images.appendChild(imgElement);
+      resolve(imgElement);
+    });
+    imgElement.addEventListener('error', () =>
+      reject(new Error(`failed to load image`))
+    );
+  });
+}
+
+const wait = function (seconds, context) {
+  return new Promise(function (resolve) {
+    setTimeout(() => resolve(context), seconds * 1000);
+  });
+};
+
+createImage('./img/img-1.jpg')
+  .then(element => {
+    return wait(2, element);
+  })
+  .then(element => {
+    element.style.display = 'none';
+    return createImage('./img/img-2.jpg');
+  })
+  .then(element => {
+    return wait(2, element);
+  })
+  .then(element => {
+    element.style.display = 'none';
+  })
+  .catch(e => console.error(e));
